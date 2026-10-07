@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selamat Ulang Tahun, Sayangku</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 1. Elemen Audio Latar Baku -->
+  <audio id="bgmAudio" loop preload="auto" src="assets/audio/bgm.mp3">
+    <source src="assets/audio/bgm.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- 2. HUD Kontrol Musik -->
+  <button id="soundToggleBtn" class="hud-audio-btn" aria-label="Nyalakan atau matikan musik" aria-pressed="true">🔊 AUDIO: ON</button>
+
+  <!-- 3. Entrance Gate Modal (Wajib: id="enterSiteBtn") -->
+  <div id="entranceModal" class="entrance-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="entrance-card">
+      <div class="entrance-wax-seal" aria-hidden="true">💌</div>
+      <p class="entrance-eyebrow">Spesial Untuk Hari Bahagiamu</p>
+      <h2 id="modalTitle" class="entrance-heading">Ada Surat & Kejutan Manis Menantimu</h2>
+      <p class="entrance-desc">Sebuah halaman kenangan kecil yang kurangkai khusus untuk merayakan hari ulang tahunmu.</p>
+      <button id="enterSiteBtn" class="btn-entrance">Buka Kado Spesial ✨</button>
+    </div>
+  </div>
+
+  <main class="site-container">
+
+    <!-- SECTION 1: HEADER & FOTO UTAMA -->
+    <header class="section-header">
+      <div class="header-tag-pill">
+        <span class="sparkle-icon" aria-hidden="true">✦</span>
+        <p class="event-tag" id="eventDate">14 Oktober 2026</p>
+        <span class="sparkle-icon" aria-hidden="true">✦</span>
+      </div>
+
+      <h1 class="header-headline">
+        Selamat Ulang Tahun,<br>
+        <span id="recipientName" class="recipient-highlight">Clarissa Aurelia</span>
+      </h1>
+
+      <p class="header-subtext">Semoga hari istimewa ini membawa tawa, rasa damai, dan jutaan alasan baru untuk tersenyum manis.</p>
+
+      <div class="hero-photo-wrapper">
+        <div class="hero-photo-frame">
+          <img src="assets/images/cover.jpg" alt="Foto Utama Header">
+        </div>
+        <div class="hero-photo-glow" aria-hidden="true"></div>
+      </div>
+    </header>
+
+    <!-- SECTION 2: SURAT UCAPAN -->
+    <section class="section-letter" aria-label="Surat Ucapan">
+      <div class="letter-outer-card">
+        <div class="letter-header">
+          <span class="letter-badge" aria-hidden="true">A Letter For You</span>
+          <div class="letter-divider" aria-hidden="true"></div>
+        </div>
+
+        <p id="letterText" class="letter-content">
+          Selamat bertambah usia, sayangku. Terima kasih sudah hadir dan melengkapi setiap hariku dengan senyum, kehangatan, dan tawa yang selalu menenangkan. Bersamamu, hal-hal sederhana selalu terasa begitu berarti. Semoga di usiamu yang baru ini, langkahmu selalu dimudahkan, hatimu selalu dilapangkan, dan impian-impian terbaikmu satu per satu terwujud. Aku akan selalu ada di sini, menemanimu di setiap langkah.
+        </p>
+
+        <div class="letter-signature-area">
+          <p class="letter-sign-label">Dengan segenap cintaku,</p>
+          <p class="letter-author"><span id="senderName">Rian Aditya</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: GALERI KENANGAN DENGAN CAPTION DINAMIS -->
+    <section class="section-gallery" aria-label="Galeri Kenangan">
+      <div class="gallery-title-group">
+        <span class="gallery-kicker">Momen Indah Kita</span>
+        <h2 class="gallery-title">Kenangan Yang Selalu Di Hati</h2>
+      </div>
+
+      <div class="gallery-grid-2">
+        <figure class="memory-card">
+          <div class="memory-img-box">
+            <img src="assets/images/photo_1.jpg" alt="Foto Kenangan 1">
+          </div>
+          <figcaption class="photo-caption" id="photoCaption1">
+            Setiap senyum kecilmu selalu jadi alasan terbaikku untuk bersyukur ✨
+          </figcaption>
+        </figure>
+
+        <figure class="memory-card">
+          <div class="memory-img-box">
+            <img src="assets/images/photo_2.jpg" alt="Foto Kenangan 2">
+          </div>
+          <figcaption class="photo-caption" id="photoCaption2">
+            Menghabiskan waktu denganmu selalu terasa seperti pulang ke tempat ternyaman 🤍
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <footer class="section-footer">
+      <p class="footer-note">Dibuat penuh cinta untukmu di hari ulang tahunmu 🌹</p>
+      <p class="footer-sub">Selalu dan selamanya bersamamu</p>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

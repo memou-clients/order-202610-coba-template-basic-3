@@ -1,0 +1,536 @@
+/*
+  MEMOu Basic Package: Birthday Template Basic 2 (Romantic Edition)
+  Design System: Romantic Editorial / Intimate Warmth
+  Typography: Cormorant Garamond (Editorial Display) + Plus Jakarta Sans (Clean Legible Body)
+*/
+
+:root {
+  --bg-page: #FAF6F2;
+  --bg-surface: #FFFFFF;
+  --bg-subtle: #F6EEEA;
+  --bg-rose-soft: #FBF0F2;
+  
+  --text-main: #331E23;
+  --text-body: #4F383D;
+  --text-muted: #7E656A;
+  --text-light: #A38C91;
+
+  --rose-primary: #B3445A;
+  --rose-hover: #983347;
+  --rose-border: rgba(179, 68, 90, 0.15);
+  
+  --gold-accent: #C4935A;
+  --gold-soft: #FAF3EB;
+  --gold-border: rgba(196, 147, 90, 0.3);
+
+  --shadow-sm: 0 2px 8px rgba(51, 30, 35, 0.04);
+  --shadow-card: 0 12px 36px -8px rgba(60, 28, 35, 0.08), 0 4px 12px -2px rgba(60, 28, 35, 0.03);
+  --shadow-lift: 0 18px 42px -6px rgba(60, 28, 35, 0.12), 0 6px 16px -2px rgba(60, 28, 35, 0.05);
+
+  --radius-xl: 24px;
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+  --ease-smooth: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-page);
+  color: var(--text-body);
+  line-height: 1.7;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--rose-primary);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   1. HUD Music Toggle Button
+   ============================================================ */
+.hud-audio-btn {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 850;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.55rem 1.15rem;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--rose-border);
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-main);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s var(--ease-smooth), background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hud-audio-btn:hover {
+  background-color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card);
+}
+
+.hud-audio-btn:active {
+  transform: translateY(0);
+}
+
+/* ============================================================
+   2. Entrance Gate Modal (Wajib: id="enterSiteBtn")
+   ============================================================ */
+.entrance-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(33, 18, 22, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s var(--ease-smooth), visibility 0.5s ease;
+}
+
+.entrance-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.entrance-card {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: var(--bg-surface);
+  border: 1px solid var(--rose-border);
+  border-radius: var(--radius-xl);
+  padding: 2.75rem 2.25rem 2.25rem;
+  text-align: center;
+  box-shadow: 0 25px 60px -15px rgba(45, 18, 25, 0.35);
+  transform: translateY(0);
+  transition: transform 0.4s var(--ease-smooth);
+}
+
+.entrance-wax-seal {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.85rem;
+  background: var(--bg-rose-soft);
+  border: 1px solid var(--rose-border);
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+}
+
+.entrance-eyebrow {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--rose-primary);
+  margin-bottom: 0.6rem;
+}
+
+.entrance-heading {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  line-height: 1.25;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 0.85rem;
+}
+
+.entrance-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.btn-entrance {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 48px;
+  padding: 0.85rem 1.75rem;
+  background: var(--rose-primary);
+  color: #FFFFFF;
+  border-radius: 9999px;
+  font-size: 0.96rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: 0 8px 20px -4px rgba(179, 68, 90, 0.35);
+  transition: background-color 0.25s ease, transform 0.25s var(--ease-smooth), box-shadow 0.25s ease;
+}
+
+.btn-entrance:hover {
+  background: var(--rose-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -4px rgba(179, 68, 90, 0.45);
+}
+
+.btn-entrance:active {
+  transform: translateY(0);
+}
+
+/* ============================================================
+   Main Layout Container
+   ============================================================ */
+.site-container {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 4.5rem 1.25rem 3.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+/* ============================================================
+   SECTION 1: HEADER & FOTO UTAMA
+   ============================================================ */
+.section-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--gold-border);
+  border-radius: 9999px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.5rem;
+}
+
+.header-tag-pill .sparkle-icon {
+  font-size: 0.75rem;
+  color: var(--gold-accent);
+}
+
+.event-tag {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--text-main);
+  text-transform: uppercase;
+}
+
+.header-headline {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 7vw, 3.2rem);
+  line-height: 1.18;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+}
+
+.recipient-highlight {
+  display: inline-block;
+  font-style: italic;
+  font-weight: 700;
+  color: var(--rose-primary);
+  text-shadow: 0 1px 2px rgba(179, 68, 90, 0.1);
+}
+
+.header-subtext {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 480px;
+  line-height: 1.65;
+  margin-bottom: 2.25rem;
+}
+
+.hero-photo-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.hero-photo-frame {
+  position: relative;
+  z-index: 2;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--bg-surface);
+  padding: 0.65rem;
+  border: 1px solid var(--rose-border);
+  box-shadow: var(--shadow-card);
+  transition: transform 0.4s var(--ease-smooth), box-shadow 0.4s ease;
+}
+
+.hero-photo-frame img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  border-radius: calc(var(--radius-xl) - 6px);
+  display: block;
+}
+
+.hero-photo-frame:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lift);
+}
+
+/* ============================================================
+   SECTION 2: SURAT UCAPAN
+   ============================================================ */
+.section-letter {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s var(--ease-smooth), transform 0.7s var(--ease-smooth);
+}
+
+.section-letter.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.letter-outer-card {
+  position: relative;
+  background: var(--bg-surface);
+  border: 1px solid var(--rose-border);
+  border-radius: var(--radius-xl);
+  padding: 2.75rem 2.25rem;
+  box-shadow: var(--shadow-card);
+  background-image: 
+    radial-gradient(ellipse at top right, rgba(251, 240, 242, 0.6) 0%, transparent 60%),
+    radial-gradient(ellipse at bottom left, rgba(250, 243, 235, 0.5) 0%, transparent 60%);
+}
+
+.letter-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.75rem;
+}
+
+.letter-badge {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--rose-primary);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.75rem;
+}
+
+.letter-divider {
+  width: 50px;
+  height: 2px;
+  background: var(--gold-border);
+  border-radius: 2px;
+}
+
+.letter-content {
+  font-family: var(--font-serif);
+  font-size: 1.22rem;
+  line-height: 1.85;
+  color: var(--text-main);
+  text-align: left;
+  white-space: pre-line;
+  margin-bottom: 2.25rem;
+}
+
+.letter-signature-area {
+  text-align: right;
+  border-top: 1px solid rgba(179, 68, 90, 0.1);
+  padding-top: 1.25rem;
+}
+
+.letter-sign-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 0.25rem;
+}
+
+.letter-author {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--rose-primary);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   SECTION 3: GALERI KENANGAN DENGAN CAPTION DINAMIS
+   ============================================================ */
+.section-gallery {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s var(--ease-smooth), transform 0.7s var(--ease-smooth);
+}
+
+.section-gallery.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-title-group {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.gallery-kicker {
+  display: block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--gold-accent);
+  margin-bottom: 0.4rem;
+}
+
+.gallery-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 5vw, 2.3rem);
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.gallery-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 580px) {
+  .gallery-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+}
+
+.memory-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--rose-border);
+  border-radius: var(--radius-lg);
+  padding: 0.75rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s var(--ease-smooth), box-shadow 0.35s ease;
+}
+
+.memory-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lift);
+}
+
+.memory-img-box {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: calc(var(--radius-lg) - 4px);
+  overflow: hidden;
+  background: var(--bg-subtle);
+}
+
+.memory-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s var(--ease-smooth);
+}
+
+.memory-card:hover .memory-img-box img {
+  transform: scale(1.03);
+}
+
+/* Wajib: class photo-caption & id photoCaption1/photoCaption2 */
+.photo-caption {
+  padding: 1rem 0.65rem 0.65rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-body);
+  text-align: center;
+  font-style: italic;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.section-footer {
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rose-border);
+}
+
+.footer-note {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--rose-primary);
+  margin-bottom: 0.3rem;
+}
+
+.footer-sub {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  letter-spacing: 0.02em;
+}
+
+/* ============================================================
+   Touch & Motion Preferences
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
