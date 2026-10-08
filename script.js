@@ -3,15 +3,15 @@
 // Properti ini otomatis dibaca & diubah oleh MemoU Controller Studio
 // ============================================================
 const BASIC_CONFIG = {
-  recipientName: "Clarissa Aurelia",
-  nickname: "Sayangku ❤️",
-  eventDate: "14 Oktober 2026",
-  senderName: "Rian Aditya",
-  loveLetter: "Selamat bertambah usia, sayangku. Terima kasih sudah hadir dan melengkapi setiap hariku dengan senyum, kehangatan, dan tawa yang selalu menenangkan. Bersamamu, hal-hal sederhana selalu terasa begitu berarti. Semoga di usiamu yang baru ini, langkahmu selalu dimudahkan, hatimu selalu dilapangkan, dan impian-impian terbaikmu satu per satu terwujud. Aku akan selalu ada di sini, menemanimu di setiap langkah.",
-  photoCaption1: "Setiap senyum kecilmu selalu jadi alasan terbaikku untuk bersyukur ✨",
-  photoCaption2: "Menghabiskan waktu denganmu selalu terasa seperti pulang ke tempat ternyaman 🤍",
-  music: "assets/audio/bgm.mp3",
-  backgroundColor: "#0f172a"
+  "recipientName": "njing",
+  "nickname": "Sayangku ❤️",
+  "eventDate": "14 Oktober 2026",
+  "senderName": "Rian Aditya",
+  "loveLetter": "Selamat bertambah usia, sayangku. Terima kasih sudah hadir dan melengkapi setiap hariku dengan senyum, kehangatan, dan tawa yang selalu menenangkan. Bersamamu, hal-hal sederhana selalu terasa begitu berarti. Semoga di usiamu yang baru ini, langkahmu selalu dimudahkan, hatimu selalu dilapangkan, dan impian-impian terbaikmu satu per satu terwujud. Aku akan selalu ada di sini, menemanimu di setiap langkah.",
+  "photoCaption1": "Setiap senyum kecilmu selalu jadi alasan terbaikku untuk bersyukur ✨",
+  "photoCaption2": "Menghabiskan waktu denganmu selalu terasa seperti pulang ke tempat ternyaman 🤍",
+  "music": "https://youtu.be/2cfe6UrwcGs?si=iDhI-uqIe5AegReF",
+  "backgroundColor": "#0f172a"
 };
 
 // Terapkan warna latar sedini mungkin agar tampilan konsisten tanpa flicker
