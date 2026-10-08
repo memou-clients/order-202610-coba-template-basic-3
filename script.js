@@ -11,7 +11,7 @@ const BASIC_CONFIG = {
   "photoCaption1": "Setiap senyum kecilmu selalu jadi alasan terbaikku untuk bersyukur ✨",
   "photoCaption2": "Menghabiskan waktu denganmu selalu terasa seperti pulang ke tempat ternyaman 🤍",
   "music": "assets/audio/bgm.mp3",
-  "backgroundColor": "#f0fdf4"
+  "backgroundColor": "#0f172a"
 };
 
 document.addEventListener('DOMContentLoaded', () => {
