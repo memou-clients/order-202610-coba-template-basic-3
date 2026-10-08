@@ -100,10 +100,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cHex.length === 6) {
       var cNum = parseInt(cHex, 16);
       var cLum = 0.2126 * ((cNum >> 16) & 255) + 0.7152 * ((cNum >> 8) & 255) + 0.0722 * (cNum & 255);
-      var cardTextEls = document.querySelectorAll('.memory-card .photo-caption, .letter-outer-card .letter-content, .header-tag-pill .event-tag');
+      var cardTextEls = document.querySelectorAll('.memory-card .photo-caption, .letter-outer-card .letter-content, .header-tag-pill .event-tag, .hud-audio-btn, #soundToggleBtn');
       var cardInnerTextColor = (cLum < 130) ? (BASIC_CONFIG.textColor || '#FFFFFF') : (bgLum < 130 && chosenTextColor === '#FFFFFF' ? '#331E23' : chosenTextColor);
       for (var ti = 0; ti < cardTextEls.length; ti++) {
         cardTextEls[ti].style.color = cardInnerTextColor;
+      }
+      var hudBtn = document.getElementById('soundToggleBtn') || document.querySelector('.hud-audio-btn');
+      if (hudBtn) {
+        if (BASIC_CONFIG.elementColor) {
+          hudBtn.style.backgroundColor = BASIC_CONFIG.elementColor;
+        }
+        hudBtn.style.color = cardInnerTextColor;
       }
     }
   };
