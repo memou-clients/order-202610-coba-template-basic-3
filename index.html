@@ -107,5 +107,204 @@
   </main>
 
   <script src="script.js"></script>
+<!-- MEMOu YouTube Background Audio Engine -->
+  <div id="ytBgmContainer" style="position:fixed;bottom:0;right:0;width:200px;height:120px;z-index:-9999;opacity:0.001;pointer-events:none;overflow:hidden;">
+    <div id="ytPlayer"></div>
+  </div>
+  <script>
+    window.MEMOU_YT_ID = "2cfe6UrwcGs";
+  </script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    (function() {
+      // Disable any conflicting chiptune/synthesizer engines from legacy templates
+      if (window.RomanticAudioEngine) {
+        window.RomanticAudioEngine.prototype.startBGM = function() {};
+        window.RomanticAudioEngine.prototype.toggleBGM = function() {};
+      }
+      if (window.GraduationAudioEngine) {
+        window.GraduationAudioEngine.prototype.startBGM = function() {};
+        window.GraduationAudioEngine.prototype.toggleBGM = function() {};
+      }
+      window.__memouDisableSynthBgm = true;
+
+      // Silence any existing HTML5 audio tags so they don't overlap
+      var htmlAudios = document.querySelectorAll('audio');
+      htmlAudios.forEach(function(a) {
+        try { a.pause(); a.src = ''; a.volume = 0; } catch(e) {}
+      });
+
+      var ytPlayer = null;
+      var isYtReady = false;
+      var userWantsPlay = false;
+
+      function initYt() {
+        if (ytPlayer) return;
+        var pVars = {
+          autoplay: 0,
+          loop: 1,
+          playlist: window.MEMOU_YT_ID,
+          controls: 0,
+          disablekb: 1,
+          fs: 0,
+          playsinline: 1,
+          rel: 0,
+          enablejsapi: 1
+        };
+        try {
+          if (window.location && window.location.origin && window.location.origin !== 'null') {
+            pVars.origin = window.location.origin;
+          }
+        } catch(e) {}
+
+        ytPlayer = new YT.Player('ytPlayer', {
+          height: '120',
+          width: '200',
+          videoId: window.MEMOU_YT_ID,
+          playerVars: pVars,
+          events: {
+            onReady: function(e) {
+              isYtReady = true;
+              if (userWantsPlay) {
+                tryPlayYt();
+              }
+            },
+            onStateChange: function(e) {
+              var isPlaying = e.data === 1;
+              updateToggleVisuals(isPlaying);
+              if (isPlaying) {
+                removeUnlock();
+              }
+              var bgm = document.getElementById('bgm') || document.getElementById('bgMusic') || document.getElementById('memouBgm');
+              if (bgm) {
+                if (isPlaying) bgm.dispatchEvent(new Event('play'));
+                else bgm.dispatchEvent(new Event('pause'));
+              }
+            }
+          }
+        });
+      }
+
+      if (window.YT && window.YT.Player) {
+        initYt();
+      } else {
+        window.onYouTubeIframeAPIReady = initYt;
+      }
+
+      function tryPlayYt() {
+        userWantsPlay = true;
+        if (ytPlayer && typeof ytPlayer.playVideo === 'function') {
+          try {
+            if (typeof ytPlayer.unMute === 'function') ytPlayer.unMute();
+            if (typeof ytPlayer.setVolume === 'function') ytPlayer.setVolume(70);
+            ytPlayer.playVideo();
+          } catch(e) {}
+        }
+      }
+
+      function pauseYt() {
+        userWantsPlay = false;
+        if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
+          try { ytPlayer.pauseVideo(); } catch(e) {}
+        }
+      }
+
+      function toggleYt() {
+        if (ytPlayer && typeof ytPlayer.getPlayerState === 'function') {
+          var st = ytPlayer.getPlayerState();
+          if (st === 1) pauseYt();
+          else tryPlayYt();
+        } else {
+          if (userWantsPlay) pauseYt();
+          else tryPlayYt();
+        }
+      }
+
+      function updateToggleVisuals(isPlaying) {
+        var toggleButtons = [
+          'musicToggle', 'musicToggleBtn', 'soundToggleBtn', 'bgmBtn', 'audioToggle'
+        ];
+        toggleButtons.forEach(function(id) {
+          var btn = document.getElementById(id);
+          if (btn) {
+            if (isPlaying) {
+              btn.classList.remove('paused');
+              btn.classList.add('active');
+            } else {
+              btn.classList.add('paused');
+              btn.classList.remove('active');
+            }
+          }
+        });
+        var stateText = document.getElementById('musicState');
+        if (stateText) stateText.textContent = isPlaying ? 'sound on' : 'sound off';
+      }
+
+      // Unlock YouTube audio on user interaction anywhere on page (retries until playing)
+      function removeUnlock() {
+        document.removeEventListener('click', unlock);
+        document.removeEventListener('touchstart', unlock);
+        document.removeEventListener('pointerdown', unlock);
+      }
+      function unlock() {
+        tryPlayYt();
+      }
+      document.addEventListener('click', unlock, { passive: true });
+      document.addEventListener('touchstart', unlock, { passive: true });
+      document.addEventListener('pointerdown', unlock, { passive: true });
+
+      // Proxy HTML5 audio methods to YouTube player for existing template scripts
+      document.addEventListener('DOMContentLoaded', function() {
+        var bgm = document.getElementById('bgm') || document.getElementById('bgMusic');
+        if (bgm) {
+          bgm.play = function() {
+            tryPlayYt();
+            return Promise.resolve();
+          };
+          bgm.pause = function() {
+            pauseYt();
+          };
+          try {
+            Object.defineProperty(bgm, 'paused', {
+              get: function() {
+                if (!ytPlayer || typeof ytPlayer.getPlayerState !== 'function') return !userWantsPlay;
+                return ytPlayer.getPlayerState() !== 1;
+              },
+              configurable: true
+            });
+          } catch(err) {}
+        }
+
+        // Intercept entrance buttons
+        var startButtons = [
+          'openSurprise', 'enterSiteBtn', 'openEnvelopeBtn', 'startCelebrationBtn',
+          'enterCityBtn', 'openBtn', 'startBtn', 'startGame', 'unwrapBtn'
+        ];
+        startButtons.forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) {
+            el.addEventListener('click', function() {
+              setTimeout(tryPlayYt, 200);
+            });
+          }
+        });
+
+        // Intercept music toggle buttons
+        var toggleButtons = [
+          'musicToggle', 'musicToggleBtn', 'soundToggleBtn', 'bgmBtn', 'audioToggle'
+        ];
+        toggleButtons.forEach(function(id) {
+          var btn = document.getElementById(id);
+          if (btn) {
+            btn.addEventListener('click', function(e) {
+              e.stopImmediatePropagation();
+              toggleYt();
+            }, true);
+          }
+        });
+      });
+    })();
+  </script>
+<!-- /MEMOu YouTube Background Audio Engine -->
 </body>
 </html>
